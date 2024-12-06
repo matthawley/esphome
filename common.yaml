@@ -20,6 +20,8 @@ wifi:
     password: !secret esphome_ap_password
 
 api:
+  encryption:
+    key: !secret esphome_api_key
 
 captive_portal:
 

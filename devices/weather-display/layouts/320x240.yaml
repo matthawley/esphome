@@ -1,3 +1,7 @@
+display:
+  - id: !extend main_display
+    rotation: 90
+
 lvgl:
   default_font: roboto_lg
   pages:

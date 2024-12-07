@@ -1,3 +1,10 @@
+# Internal
+one_wire:
+  platform: gpio
+  pin: GPIO17
+  id: dallas_1
+
+# Input/Output
 switch:
   - platform: gpio
     pin: GPIO14
@@ -20,11 +27,7 @@ binary_sensor:
       then:
         - switch.toggle: bento_box
 
-one_wire:
-  platform: gpio
-  pin: GPIO17
-  id: dallas_1
-
+# Output
 sensor:
   - platform: dallas_temp
     id: chamber_temperature

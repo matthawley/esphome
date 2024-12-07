@@ -1,0 +1,61 @@
+image:
+  - id: loading
+    file: '${image_relative_path}loading.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: clear_night
+    file: '${image_relative_path}clear_night.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: cloudy
+    file: '${image_relative_path}cloudy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: foggy
+    file: '${image_relative_path}foggy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: partly_cloudy_night
+    file: '${image_relative_path}partly_cloudy_night.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: partly_cloudy
+    file: '${image_relative_path}partly_cloudy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: rainy
+    file: '${image_relative_path}rainy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: snowy
+    file: '${image_relative_path}snowy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: stormy
+    file: '${image_relative_path}stormy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: sunny
+    file: '${image_relative_path}sunny.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: thunder
+    file: '${image_relative_path}thunder.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
+  - id: windy
+    file: '${image_relative_path}windy.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True

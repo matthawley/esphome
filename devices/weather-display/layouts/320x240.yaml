@@ -1,0 +1,94 @@
+lvgl:
+  default_font: roboto_lg
+  pages:
+    - id: weather_forecast
+      widgets:
+        - obj:
+            align: CENTER
+            width: 320
+            height: 240
+            pad_all: 10
+            layout:
+              pad_column: 0
+              type: GRID
+              grid_rows: [FR(25), FR(20), FR(20), FR(20), FR(15)]
+              grid_columns: [FR(50), FR(10), FR(40)]
+            widgets:
+              - image:
+                  id: img_weather_icon
+                  src: loading
+                  grid_cell_row_pos: 0
+                  grid_cell_row_span: 3
+                  grid_cell_column_pos: 0
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: " "
+                  id: lbl_date
+                  text_color: teal
+                  grid_cell_row_pos: 0
+                  grid_cell_column_pos: 1
+                  grid_cell_column_span: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: "\U000F050F"
+                  text_font: icons_lg
+                  text_align: CENTER
+                  grid_cell_row_pos: 1
+                  grid_cell_column_pos: 1
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: CENTER
+              
+              - label:
+                  text: "-- \u00B0F"
+                  id: lbl_temperature
+                  text_align: CENTER
+                  text_font: roboto_xlg
+                  grid_cell_row_pos: 1
+                  grid_cell_column_pos: 2
+                  grid_cell_x_align: START
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: "\U000F058E"
+                  text_font: icons_md
+                  text_align: CENTER
+                  grid_cell_row_pos: 2
+                  grid_cell_column_pos: 1
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: "-- %"
+                  id: lbl_humidity
+                  text_align: CENTER
+                  grid_cell_row_pos: 2
+                  grid_cell_column_pos: 2
+                  grid_cell_x_align: START
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: "LOADING..."
+                  id: lbl_weather_state
+                  text_align: CENTER
+                  text_font: roboto_md
+                  grid_cell_row_pos: 3
+                  grid_cell_column_pos: 0
+                  grid_cell_column_span: 3
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: CENTER
+
+              - label:
+                  text: " "
+                  id: lbl_last_updated
+                  text_font: roboto_sm
+                  text_align: CENTER
+                  text_color: grey
+                  grid_cell_row_pos: 4
+                  grid_cell_column_pos: 0
+                  grid_cell_column_span: 3
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: CENTER

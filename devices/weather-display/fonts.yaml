@@ -1,0 +1,46 @@
+font:
+  - id: roboto_sm
+    file:
+      type: gfonts
+      family: Roboto
+    size: 14
+    bpp: 4
+
+  - id: roboto_md
+    file:
+      type: gfonts
+      family: Roboto
+    size: 18
+    bpp: 4
+
+  - id: roboto_lg
+    file:
+      type: gfonts
+      family: Roboto
+    size: 22
+    bpp: 4
+
+  - id: roboto_xlg
+    file:
+      type: gfonts
+      family: Roboto
+    size: 32
+    bpp: 4
+
+  - file: https://github.com/Pictogrammers/pictogrammers.github.io/raw/refs/heads/main/@mdi/font/7.4.47/fonts/materialdesignicons-webfont.ttf
+    id: icons_md
+    size: 24
+    bpp: 4
+    glyphs: [
+      "\U000F050F", # thermometer
+      "\U000F058E", # water-percent
+      ]
+
+  - file: https://github.com/Pictogrammers/pictogrammers.github.io/raw/refs/heads/main/@mdi/font/7.4.47/fonts/materialdesignicons-webfont.ttf
+    id: icons_lg
+    size: 36
+    bpp: 4
+    glyphs: [
+      "\U000F050F", # thermometer
+      "\U000F058E", # water-percent
+      ]

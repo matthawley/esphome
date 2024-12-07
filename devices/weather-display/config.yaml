@@ -167,13 +167,27 @@ script:
                 text: "PARTLY CLOUDY"
       - if:
           condition:
-            text_sensor.state:
-              id: weather_state
-              state: rainy
+            - text_sensor.state:
+                id: weather_state
+                state: rainy
+            - sun.is_above_horizon:
           then:
             - lvgl.image.update:
                 id: img_weather_icon
                 src: rainy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "RAINY"
+      - if:
+          condition:
+            - text_sensor.state:
+                id: weather_state
+                state: rainy
+            - sun.is_below_horizon:
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: rainy_night
             - lvgl.label.update:
                 id: lbl_weather_state
                 text: "RAINY"

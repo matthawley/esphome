@@ -34,6 +34,11 @@ image:
     resize: 128x128
     type: RGB565
     use_transparency: True
+  - id: rainy_night
+    file: '${image_relative_path}rainy_night.png'
+    resize: 128x128
+    type: RGB565
+    use_transparency: True
   - id: snowy
     file: '${image_relative_path}snowy.png'
     resize: 128x128

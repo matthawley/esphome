@@ -1,0 +1,251 @@
+# Input/Output
+text:
+  - platform: lvgl
+    name: last_reported
+    widget: lbl_last_updated
+    mode: text
+
+switch:
+  - id: switch_antiburn
+    platform: template
+    name: Antiburn
+    icon: mdi:television-shimmer
+    optimistic: true
+    entity_category: config
+    turn_on_action:
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+      - lvgl.pause:
+          show_snow: true
+    turn_off_action:
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+
+# Input
+sensor:
+  - id: weather_temperature
+    platform: homeassistant
+    entity_id: ${temperature_entity_id}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: lbl_temperature
+            text:
+              format: "%.0f \u00b0F"
+              args: [ 'x' ]
+
+  - id: weather_humidity
+    platform: homeassistant
+    entity_id: ${precipitation_station_entity_id}
+    attribute: humidity
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: lbl_humidity
+            text:
+              format: "%.0f %%"
+              args: [ 'x' ]
+
+text_sensor:
+  - platform: homeassistant
+    id: weather_state
+    entity_id: ${precipitation_station_entity_id}
+    filters:
+      - to_lower:
+    on_value:
+      then:
+        - script.execute: update_weather_icon
+
+time:
+  - id: ha_time
+    platform: homeassistant
+    on_time_sync:
+      - script.execute: update_date
+    on_time:
+      - hours: /1
+        minutes: 0
+        seconds: 0
+        then:
+          - script.execute: update_date
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+
+sun:
+  latitude: ${latitude}
+  longitude: ${longitude}
+
+# Scripts
+script:
+  - id: update_date
+    then:
+      - lvgl.label.update:
+          id: lbl_date
+          text: !lambda |-
+            static const char * const mon_names[] = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+            static char date_buf[12];
+            auto now = id(ha_time).now();
+            snprintf(date_buf, sizeof(date_buf), "%s %d %d", mon_names[now.month-1], now.day_of_month, now.year);
+            return date_buf;
+  
+  - id: update_weather_icon
+    then:
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: clear-night
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: clear_night
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "CLEAR NIGHT"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: cloudy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: cloudy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "CLOUDY"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: fog
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: foggy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "FOGGY"
+      - if:
+          condition:
+            - text_sensor.state:
+                id: weather_state
+                state: partlycloudy
+            - sun.is_above_horizon:
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: partly_cloudy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "PARTLY CLOUDY"
+      - if:
+          condition:
+            - text_sensor.state:
+                id: weather_state
+                state: partlycloudy
+            - sun.is_below_horizon:
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: partly_cloudy_night
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "PARTLY CLOUDY"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: rainy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: rainy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "RAINY"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: snowy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: snowy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "SNOWY"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: snow-rainy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: snowy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "RAINY SNOW"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: lightning-rainy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: stormy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "THUNDERSTORM"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: sunny
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: sunny
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "CLEAR SKY"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: lightning
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: thunder
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "THUNDER"
+      - if:
+          condition:
+            text_sensor.state:
+              id: weather_state
+              state: windy
+          then:
+            - lvgl.image.update:
+                id: img_weather_icon
+                src: windy
+            - lvgl.label.update:
+                id: lbl_weather_state
+                text: "WINDY"

@@ -32,7 +32,6 @@ font:
     size: 24
     bpp: 4
     glyphs: [
-      "\U000F050F", # thermometer
       "\U000F058E", # water-percent
       ]
 
@@ -42,5 +41,4 @@ font:
     bpp: 4
     glyphs: [
       "\U000F050F", # thermometer
-      "\U000F058E", # water-percent
       ]

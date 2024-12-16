@@ -87,6 +87,10 @@ time:
 sun:
   latitude: ${latitude}
   longitude: ${longitude}
+  on_sunrise:
+    - script.execute: update_weather_icon
+  on_sunset:
+    - script.execute: update_weather_icon
 
 # Scripts
 script:

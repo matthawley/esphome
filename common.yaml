@@ -47,7 +47,7 @@ sensor:
     source_id: wifi_signal_db
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "%"
+    unit_of_measurement: dBm
     entity_category: diagnostic
 
 text_sensor:
